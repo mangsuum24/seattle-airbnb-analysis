@@ -1,0 +1,59 @@
+CREATE TABLE listingsSEA (
+    id BIGINT PRIMARY KEY,
+    name TEXT,
+    host_id BIGINT,
+    host_name TEXT,
+    neighbourhood_group TEXT,
+    neighbourhood TEXT,
+    latitude DECIMAL(10,5),
+    longitude DECIMAL(10,5),
+    room_type TEXT,
+    price INT,
+    minimum_nights INT,
+    number_of_reviews INT,
+    last_review DATE,
+    reviews_per_month DECIMAL(5,2),
+    calculated_host_listings_count INT,
+    availability_365 INT,
+    number_of_reviews_ltm INT,
+    license TEXT
+);
+
+
+--How big is the dataset? 
+/* SELECT 
+    COUNT(*) AS total_listings,
+    COUNT(price) AS listings_with_price,
+    COUNT(DISTINCT neighbourhood_group) AS total_boroughs,
+    COUNT(DISTINCT neighbourhood) AS total_neighbourhoods,
+    COUNT(DISTINCT host_id) AS total_hosts
+FROM listingsSEA;  */
+
+
+-- What's the price range?
+/* SELECT 
+    MIN(price) AS lowest_price,
+    MAX(price) AS highest_price,
+    ROUND(AVG(price), 2) AS avg_price,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price) AS median_price
+FROM listingsSEA
+WHERE price IS NOT NULL AND price > 0; */
+
+
+-- How many listings are extreme outliers?
+SELECT 
+    CASE 
+        WHEN price <= 100 THEN '$1-100'
+        WHEN price <= 200 THEN '$101-200'
+        WHEN price <= 500 THEN '$201-500'
+        WHEN price <= 1000 THEN '$501-1000'
+        ELSE '$1000+'
+    END AS price_range,
+    COUNT(*) AS total_listings,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 1) AS percentage
+FROM listingsSEA
+WHERE price IS NOT NULL AND price > 0
+GROUP BY price_range
+ORDER BY price_range;
+
+
