@@ -185,7 +185,7 @@ seattle-airbnb-analysis/
 
 ## Author
 
-**Suum** — Recent Economics graduate from Willamette University. Building a data analyst portfolio combining SQL, R, and Tableau with domain knowledge in economics and market analysis.
+**Mang Suum** — Recent Economics graduate from Willamette University. Building a data analyst portfolio combining SQL, R, and Tableau with domain knowledge in economics and market analysis.
 
 - [LinkedIn](https://www.linkedin.com/in/mang-suum/)
 - [GitHub](https://github.com/mangsuum24)
